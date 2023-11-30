@@ -40,6 +40,11 @@ const restaurants = [
     name: "NCH",
     price: "$$$$",
   },
+  {
+    id: 6,
+    name: "Barbarea",
+    price: "$$",
+  },
 ];
 
 app.get("/restaurants", (req, res) => {
