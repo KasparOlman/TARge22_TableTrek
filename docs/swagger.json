@@ -6,7 +6,7 @@
         "description": "Api enda projekti TableTrek jaoks"
     },
     "paths": {
-        "/games": {
+        "/restaurants": {
             "get": {
                 "tags": [
                     "games"
@@ -36,6 +36,71 @@
                 },
                 "summary": "Gets all games from list",
                 "description": "gets a list of games from api"
+            }
+        },
+        "/restaurants/{id}": {
+            "summary": "Get full details of a Restaurant",
+            "description": "Returns full details of a given Restaurant Id.",
+            "get": {
+                "tags": [
+                    "details"
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/error"
+                                },
+                                "examples": {
+                                    "Restaurant /w+ was not wound": {
+                                        "value": " Restaurant \\\\w+ was not found in game array."
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Returns full details of a given Id Restaurant"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "error": {
+                                        "value": "Restaurant /w + was not found"
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Restaurant was not found from current array."
+                    }
+                },
+                "operationId": "ID",
+                "summary": "GEt full details of a Restaurant",
+                "description": "Returns full details of a given id Restaurants."
+            },
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true
+                }
+            ]
+        }
+    },
+    "components": {
+        "schemas": {
+            "error": {
+                "title": "Root Type for error",
+                "description": "{\"error\": \"Error message.\"}",
+                "type": "object",
+                "properties": {
+                    "error": {
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "error": "Error Message"
+                }
             }
         }
     }
