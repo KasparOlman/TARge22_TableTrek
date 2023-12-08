@@ -1,15 +1,14 @@
 const express = require("express");
 const app = express();
+const cors = require("cors");
 const port = 8080;
 const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("./docs/swagger.json");
 
+app.use(cors());
+app.use(express.json());
+
 const restaurants = [
-  {
-    id: 0,
-    name: "Select a restaurant",
-    price: "?",
-  },
   {
     id: 1,
     name: "Art Priori",
