@@ -1,3 +1,5 @@
+require("dotenv").config();
+const mariadb = require("mariadb");
 const express = require("express");
 const app = express();
 const cors = require("cors");
@@ -84,7 +86,7 @@ app.delete("/restaurants/:id", (req, res) => {
 });
 
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-app.listen(port, () => console.log(`API up at http://localhost:${port}`));
+app.listen(port, async () => console.log(`API up at http://localhost:${port}`));
 
 function getBaseUri(req) {
   return req.connection && req.connection.encrypted
