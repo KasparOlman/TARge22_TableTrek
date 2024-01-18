@@ -1,4 +1,4 @@
-const restaurantsController = require("../Controller/RestaurantsController");
+const restaurantsController = require("../Controller/RestaurantsController.js");
 
 module.exports = (app) => {
   app
@@ -7,7 +7,7 @@ module.exports = (app) => {
     .post(restaurantsController.createNew);
 
   app
-    .route("restaurants/:id")
+    .route("/restaurants/:id")
     .put(restaurantsController.updateById)
     .get(restaurantsController.getById)
     .delete(restaurantsController.deleteById);

@@ -9,7 +9,7 @@ exports.getAll = async (req, res) => {
 };
 
 exports.getById = async (req, res) => {
-  const restaurants = await Restaurant.findByPk(req.params.id);
+  const restaurants = await restaurant.findByPk(req.params.id);
   res.send(restaurants);
 };
 
@@ -70,7 +70,7 @@ exports.updateById = async (req, res) => {
     .location(`${getBaseUrl(req)}/restaurants/${restaurant.id}`)
     .json(restaurant);
 };
-const getRestaurants = async (req, res) => {
+getRestaurants = async (req, res) => {
   try {
     const restaurants = await db.restaurants.findAll();
     res.json(restaurants);
@@ -78,10 +78,6 @@ const getRestaurants = async (req, res) => {
     console.error("Error fetching restaurants:", error);
     res.status(500).json({ error: "Internal server error" });
   }
-};
-
-module.exports = {
-  getRestaurants,
 };
 
 getBaseUrl = (request) => {
