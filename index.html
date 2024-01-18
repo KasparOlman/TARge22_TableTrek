@@ -28,8 +28,8 @@
           <th>Price</th>
         </tr>
         <tr v-for="restaurant in restaurants">
-          <td @click="getRestaurants(restaurant.id)">{{restaurant.name}}</td>
-          <td>{{restaurant.price}}</td>
+          <td @click="getRestaurants(restaurant.id)">{{ restaurant.name }}</td>
+          <td>{{ restaurant.price }}</td>
         </tr>
       </table>
 
@@ -49,15 +49,15 @@
                 <table>
                   <tr>
                     <th>ID</th>
-                    <td>{{restaurantInModal.id}}</td>
+                    <td>{{ restaurantInModal.id }}</td>
                   </tr>
                   <tr>
                     <th>Name</th>
-                    <td>{{restaurantInModal.name}}</td>
+                    <td>{{ restaurantInModal.name }}</td>
                   </tr>
                   <tr>
                     <th>Price</th>
-                    <td>{{restaurantInModal.price}}</td>
+                    <td>{{ restaurantInModal.price }}</td>
                   </tr>
                 </table>
               </div>
