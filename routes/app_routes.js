@@ -1,7 +1,14 @@
-const restaurantsController = require("..controller/RestaurantsController.js");
+const restaurantsController = require("../Controller/RestaurantsController");
 
 module.exports = (app) => {
-  app.route("/restaurants").get(restaurantsController.getAll);
+  app
+    .route("/restaurants")
+    .get(restaurantsController.getAll)
+    .post(restaurantsController.createNew);
 
-  app.route("restaurants/:id").get(restaurantsController.getById);
+  app
+    .route("restaurants/:id")
+    .put(restaurantsController.updateById)
+    .get(restaurantsController.getById)
+    .delete(restaurantsController.deleteById);
 };

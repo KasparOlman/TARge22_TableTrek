@@ -1,37 +1,25 @@
-const app = Vue.createApp({
+const vue = Vue.createApp({
   data() {
     return {
+      restaurantInModal: { name: null },
       restaurants: [],
-      restaurantInModal: {},
     };
   },
+  async created() {
+    this.restaurants = await (
+      await fetch("http://localhost:8080/restaurants")
+    ).json();
+  },
   methods: {
-    async getRestaurant(id) {
-      try {
-        const response = await fetch(`http://localhost:8080/restaurants/${id}`);
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        this.restaurantInModal = await response.json();
-        let restaurantInfoModal = new bootstrap.Modal(
-          document.getElementById("restaurantInfoModal")
-        );
-        restaurantInfoModal.show();
-      } catch (error) {
-        console.error("Error fetching restaurant data:", error);
-      }
+    getRestaurants: async function (id) {
+      this.restaurantInModal = await (
+        await fetch(`http://localhost:8080//$restaurants{id}`)
+      ).json();
+      let restaurantInfoModal = new bootstrap.Modal(
+        document.getElementById("restaurantInfoModal"),
+        {}
+      );
+      restaurantInfoModal.show();
     },
   },
-  async created() {
-    try {
-      const response = await fetch("http://localhost:8080/restaurants");
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      this.restaurants = await response.json();
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  },
-});
-app.mount("#app");
+}).mount("#app");
