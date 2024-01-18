@@ -13,7 +13,7 @@ const vue = Vue.createApp({
   methods: {
     getRestaurants: async function (id) {
       this.restaurantInModal = await (
-        await fetch(`http://localhost:8080//$restaurants{id}`)
+        await fetch(`http://localhost:8080/restaurants/${id}`)
       ).json();
       let restaurantInfoModal = new bootstrap.Modal(
         document.getElementById("restaurantInfoModal"),

@@ -9,7 +9,7 @@ exports.getAll = async (req, res) => {
 };
 
 exports.getById = async (req, res) => {
-  const restaurants = await restaurant.findByPk(req.params.id);
+  const restaurants = await Restaurant.findByPk(req.params.id);
   res.send(restaurants);
 };
 
@@ -23,7 +23,10 @@ exports.createNew = async (req, res) => {
       res.status(400).send({ error: error.errors.map((item) => item.message) });
     } else {
       console.log("RestaurantsCreate: ", error);
-      res.status(500).send({ error: "Something has gone wrong " });
+      res.status(500).send({
+        error:
+          "Something has gone wrong in our monkey pit, lead orangutan has been deployed to fix it up",
+      });
     }
     return;
   }
@@ -40,44 +43,43 @@ exports.deleteById = async (req, res) => {
     result = await Restaurant.destroy({ where: { id: req.params.id } });
   } catch (error) {
     console.log("RestaurantsDelete: ", error);
-    res.status(500).send({ error: "Something has gone wrong" });
+    res.status(500).send({
+      error:
+        "Something has gone wrong in our monkey pit, lead orangutan has been deployed to fix it up",
+    });
     return;
   }
   if (result === 0) {
-    res.status(404).send({ error: "Restaurant not found" });
+    res.status(404).send({ error: "Resto not found" });
     return;
   }
   res.status(204).send();
 };
 
 exports.updateById = async (req, res) => {
+  let result;
+  delete req.body.id;
   try {
-    const restaurant = await Restaurant.update(req.body);
-
-    res.status(201).location(`${getBaseUrl(req)}/restaurants/${restaurant.id}`);
-
-    console.log(restaurant);
-
-    res.send(restaurant);
+    result = await Restaurant.update(req.body, {
+      where: { id: req.params.id },
+    });
   } catch (error) {
-    console.error(error);
-
-    res.status(400).send("Invalid input");
+    console.log("RestaurantsUpdate: ", error);
+    res.status(500).send({
+      error:
+        "Something has gone wrong in our monkey pit, lead orangutan has been deployed to fix it up",
+    });
+    return;
+  }
+  if (result === 0) {
+    res.status(404).send({ error: "Resto not found" });
+    return;
   }
   const restaurant = await Restaurant.findByPk(req.params.id);
   res
     .status(200)
     .location(`${getBaseUrl(req)}/restaurants/${restaurant.id}`)
     .json(restaurant);
-};
-getRestaurants = async (req, res) => {
-  try {
-    const restaurants = await db.restaurants.findAll();
-    res.json(restaurants);
-  } catch (error) {
-    console.error("Error fetching restaurants:", error);
-    res.status(500).json({ error: "Internal server error" });
-  }
 };
 
 getBaseUrl = (request) => {
