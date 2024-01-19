@@ -16,7 +16,10 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 db.restaurants = require("./models/Restaurant.model")(sequelize, Sequelize);
-db.addresses = require("./models/Addresses.model")(sequelize, Sequelize);
+db.restaurant_addresses = require("./models/RestaurantAddresses.model")(
+  sequelize,
+  Sequelize
+);
 async function Sync() {
   await sequelize.sync({ alter: true });
 }

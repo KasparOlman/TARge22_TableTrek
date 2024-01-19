@@ -1,5 +1,6 @@
 const restaurantsController = require("../Controller/RestaurantsController.js");
-const AddressesController = require("../Controller/AddressesController.js");
+const RestaurantsAddressesController = require("../Controller/RestaurantsAddressesController.js");
+const BookingController = require("../Controller/BookingController");
 module.exports = (app) => {
   app
     .route("/restaurants")
@@ -14,12 +15,13 @@ module.exports = (app) => {
 
   app
     .route("/Addresses")
-    .get(AddressesController.getAll)
-    .post(AddressesController.createNew);
+    .get(RestaurantsAddressesController.getAll)
+    .post(RestaurantsAddressesController.createNew);
 
   app
     .route("/Addresses/:addressId")
-    .get(AddressesController.getById)
-    .put(AddressesController.updateById)
-    .delete(AddressesController.deleteById);
+    .get(RestaurantsAddressesController.getById)
+    .put(RestaurantsAddressesController.updateById)
+    .delete(RestaurantsAddressesController.deleteById);
+  app.route("/booking").get(BookingController.getAll);
 };
