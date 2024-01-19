@@ -18,6 +18,15 @@ module.exports = (sequelize, Sequelize, Restaurant, RestaurantAddress) => {
         model: RestaurantAddress,
         key: "id",
       },
+      booking_date: {
+        type: Sequelize.DATE,
+      },
+      customer_name: {
+        type: Sequelize.STRING,
+      },
+      booking_time: {
+        type: Sequelize.TIME,
+      },
     },
   });
   Restaurant.belongsToMany(RestaurantAddress, { through: Booking });
