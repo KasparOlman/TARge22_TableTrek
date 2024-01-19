@@ -45,14 +45,17 @@ const vue = Vue.createApp({
         return;
       }
 
-      this.bookingDate = bookingDateInput.value;
-      this.customerName = customerNameInput.value;
+      const bookingDate = bookingDateInput.value;
+      const bookingTime = bookingDateInput.value;
+      const customerName = customerNameInput.value;
+
+      window.close();
 
       this.bookTable();
     },
     async bookTable() {
       try {
-        const response = await fetch(`http://localhost:8080/bookings`, {
+        const response = await fetch('http://localhost:8080/bookings', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -60,10 +63,11 @@ const vue = Vue.createApp({
           body: JSON.stringify({
             restaurantId: this.restaurantInModal.id,
             bookingDate: this.bookingDate,
+            bookingTime: this.bookingTime,
             customerName: this.customerName,
           }),
         });
-
+    
         if (response.ok) {
           console.log('Booking successful');
           alert('Booking successful!');
@@ -75,6 +79,6 @@ const vue = Vue.createApp({
         console.error('Error:', error);
         alert('An error occurred. Please try again.');
       }
-    },
+    },    
   },
 }).mount("#app");
