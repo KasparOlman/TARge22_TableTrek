@@ -23,5 +23,5 @@ module.exports = (app) => {
     .get(RestaurantsAddressesController.getById)
     .put(RestaurantsAddressesController.updateById)
     .delete(RestaurantsAddressesController.deleteById);
-  app.route("/booking").get(BookingController.getAll);
+  app.route("/booking").post(BookingController.getAll);
 };
