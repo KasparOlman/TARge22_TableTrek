@@ -50,6 +50,35 @@ app.delete("/restaurants/:id", (req, res) => {
   restaurants.splice(req.params.id - 1, 1);
   res.status(204).send({ error: "No Content" });
 });
+app.post("/bookings", async (req, res) => {
+  try {
+    if (
+      !req.body.restaurantId ||
+      !req.body.bookingDate ||
+      !req.body.bookingTime ||
+      !req.body.customerName
+    ) {
+      return res
+        .status(400)
+        .send({ error: "One or all required parameters are missing" });
+    }
+
+    const newBooking = await db.booking.create({
+      restaurant_id: req.body.restaurantId,
+      booking_date: req.body.bookingDate,
+      booking_time: req.body.bookingTime,
+      customer_name: req.body.customerName,
+    });
+
+    res
+      .status(201)
+      .send({ message: "Booking created successfully", booking: newBooking });
+  } catch (error) {
+    // Käsitse võimalikke vigu
+    console.error("Error:", error);
+    res.status(500).send({ error: "Internal Server Error" });
+  }
+});
 
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 

@@ -18,22 +18,25 @@ module.exports = (sequelize, Sequelize, Restaurant, RestaurantAddress) => {
         model: RestaurantAddress,
         key: "id",
       },
-      booking_date: {
-        type: Sequelize.DATE,
-      },
-      customer_name: {
-        type: Sequelize.STRING,
-      },
-      booking_time: {
-        type: Sequelize.TIME,
-      },
+    },
+    booking_date: {
+      type: Sequelize.DATE,
+    },
+    customer_name: {
+      type: Sequelize.STRING,
+    },
+    booking_time: {
+      type: Sequelize.TIME,
     },
   });
+
+  // Assotsiatsioonid
   Restaurant.belongsToMany(RestaurantAddress, { through: Booking });
   RestaurantAddress.belongsToMany(Restaurant, { through: Booking });
-  Restaurant.hasMany(Booking);
-  Booking.belongsTo(Restaurant);
-  RestaurantAddress.hasMany(Booking);
-  Booking.belongsTo(RestaurantAddress);
+  Restaurant.hasMany(Booking, { foreignKey: "restaurant_id" });
+  Booking.belongsTo(Restaurant, { foreignKey: "restaurant_id" });
+  RestaurantAddress.hasMany(Booking, { foreignKey: "addresses_id" });
+  Booking.belongsTo(RestaurantAddress, { foreignKey: "addresses_id" });
+
   return Booking;
 };

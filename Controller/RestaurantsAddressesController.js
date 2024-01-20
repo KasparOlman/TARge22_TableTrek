@@ -39,7 +39,9 @@ exports.createNew = async (req, res) => {
   res
     .status(201)
     .location(
-      `${getBaseUrl(req)}/influencers/${restaurants_addresses.addresses.id}`
+      `${getBaseUrl(req)}/restaurants_addresses/${
+        restaurants_addresses.addresses.id
+      }`
     )
     .json(restaurants_addresses);
   console.log(restaurants_addresses);
@@ -86,7 +88,7 @@ exports.updateById = async (req, res) => {
     changed_restaurants_addresses === 0 ||
     changed_restaurants_addresses === undefined
   ) {
-    res.status(404).send({ error: "Influencer not found" });
+    res.status(404).send({ error: "Resto not found" });
     return;
   }
   const restaurants_addresses = await RestaurantsAddresses.findByPk(
@@ -95,7 +97,7 @@ exports.updateById = async (req, res) => {
   res
     .status(200)
     .location(
-      `${getBaseUrl(req)}/INFLUENCERS/${
+      `${getBaseUrl(req)}/RESTAURANT_ADDRESSES/${
         restaurants_addresses.restaurants_addresses.id
       }`
     )
