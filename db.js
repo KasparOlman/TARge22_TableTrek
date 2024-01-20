@@ -20,7 +20,7 @@ db.restaurant_addresses = require("./models/RestaurantAddresses.model")(
   sequelize,
   Sequelize
 );
-db.booking = require("./models/Booking.model")(
+db.bookings = require("./models/Booking.model")(
   sequelize,
   Sequelize,
   db.restaurants,

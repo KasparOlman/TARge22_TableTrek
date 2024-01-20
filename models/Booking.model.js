@@ -30,9 +30,9 @@ module.exports = (sequelize, Sequelize, Restaurant, RestaurantAddress) => {
     },
   });
 
-  // Assotsiatsioonid
-  Restaurant.belongsToMany(RestaurantAddress, { through: Booking });
-  RestaurantAddress.belongsToMany(Restaurant, { through: Booking });
+  // Associations
+  Restaurant.belongsToMany(RestaurantAddress, { through: Booking, foreignKey: "restaurant_id" });
+  RestaurantAddress.belongsToMany(Restaurant, { through: Booking, foreignKey: "addresses_id" });
   Restaurant.hasMany(Booking, { foreignKey: "restaurant_id" });
   Booking.belongsTo(Restaurant, { foreignKey: "restaurant_id" });
   RestaurantAddress.hasMany(Booking, { foreignKey: "addresses_id" });

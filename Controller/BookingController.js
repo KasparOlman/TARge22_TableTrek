@@ -4,7 +4,17 @@ const Booking = db.bookings;
 exports.createNew = async (req, res) => {
   try {
     console.log("Received booking request:", req.body);
-    const newBooking = await Booking.create(req.body);
+
+    // Ensure that required properties are present, or set default values
+    const { booking_date, customer_name, booking_time } = req.body;
+
+
+    const newBooking = await Booking.create({
+      booking_date: booking_date,
+      customer_name: customer_name,
+      booking_time: booking_time,
+    });
+
     console.log("Booking created:", newBooking);
     res.status(201).json(newBooking);
   } catch (error) {
@@ -29,6 +39,7 @@ exports.getAll = async (req, res) => {
     let result = bookings.map((booking) => ({
       restaurantName: booking.restaurant.name,
       restaurantAddress: `${booking.restaurant.restaurant_addresses.streetAddress}`,
+      // Add other properties as needed
     }));
 
     res.send(result);

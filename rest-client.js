@@ -33,33 +33,36 @@ const vue = Vue.createApp({
       bookingWindow.document.write(`
       <form action="http://localhost:8080/bookings" method="POST">
         <label for="bookingDate">Booking Date:</label>
-        <input type="date" id="bookingDate" placeholder="YYYY-MM-DD HH:mm"><br>
+        <input type="date" id="bookingDate" name="bookingDate" placeholder="YYYY-MM-DD HH:mm"><br>
         <label for="bookingTime">Booking Time:</label>
-        <input type="time" id="bookingTime"><br>
+        <input type="time" id="bookingTime" name="bookingTime"><br>
         <label for="customerName">Your Name:</label>
-        <input type="text" id="customerName" placeholder="Your Name"><br>
-        <button type="submit">Book Table</button> 
-        </form>
+        <input type="text" id="customerName" name="customerName" placeholder="Your Name"><br>
+        <button type="submit">Book Table</button>
+      </form>
+    
         `);
         
     },
     handleBooking() {
       const bookingDateInput = window.document.getElementById("bookingDate");
+      const bookingTimeInput = window.document.getElementById("bookingTime");
       const customerNameInput = window.document.getElementById("customerName");
-
-      if (!bookingDateInput || !customerNameInput) {
+    
+      if (!bookingDateInput || !bookingTimeInput || !customerNameInput) {
         console.log("Booking canceled or invalid input.");
         return;
       }
-
+    
       const bookingDate = bookingDateInput.value;
-      const bookingTime = bookingDateInput.value;
+      const bookingTime = bookingTimeInput.value;
       const customerName = customerNameInput.value;
-
+    
       window.close();
-
+    
       this.bookTable(bookingDate, customerName, bookingTime);
-    },
+    }
+    ,
     async bookTable(bookingDate, customerName, bookingTime) {
       try {
         const response = await fetch("http://localhost:8080/bookings", {
