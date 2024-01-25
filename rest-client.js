@@ -3,9 +3,9 @@ const vue = Vue.createApp({
     return {
       restaurantInModal: { id: null, name: null, price: null },
       restaurants: [],
-      bookingDate: null,
-      bookingTime: null,
-      customerName: null,
+      booking_date: null,
+      booking_time: null,
+      customer_name: null,
     };
   },
   async created() {
@@ -24,46 +24,26 @@ const vue = Vue.createApp({
       );
       restaurantInfoModal.show();
     },
-    openBookingWindow() {
-      const bookingWindow = window.open(
-        "",
-        "BookingWindow",
-        "width=400,height=200"
-      );
-      bookingWindow.document.write(`
-      <form action="http://localhost:8080/bookings" method="POST">
-        <label for="bookingDate">Booking Date:</label>
-        <input type="date" id="bookingDate" name="bookingDate" placeholder="YYYY-MM-DD HH:mm"><br>
-        <label for="bookingTime">Booking Time:</label>
-        <input type="time" id="bookingTime" name="bookingTime"><br>
-        <label for="customerName">Your Name:</label>
-        <input type="text" id="customerName" name="customerName" placeholder="Your Name"><br>
-        <button type="submit">Book Table</button>
-      </form>
-    
-        `);
-        
-    },
-    handleBooking() {
-      const bookingDateInput = window.document.getElementById("bookingDate");
-      const bookingTimeInput = window.document.getElementById("bookingTime");
-      const customerNameInput = window.document.getElementById("customerName");
+    async handleBooking() {
+      const bookingDateInput = window.document.getElementById("booking_date");
+      const bookingTimeInput = window.document.getElementById("booking_time");
+      const customerNameInput = window.document.getElementById("customer_name");
     
       if (!bookingDateInput || !bookingTimeInput || !customerNameInput) {
         console.log("Booking canceled or invalid input.");
         return;
       }
     
-      const bookingDate = bookingDateInput.value;
-      const bookingTime = bookingTimeInput.value;
-      const customerName = customerNameInput.value;
+      const booking_date = bookingDateInput.value;
+      const booking_time = bookingTimeInput.value;
+      const customer_name = customerNameInput.value;
     
       window.close();
     
-      this.bookTable(bookingDate, customerName, bookingTime);
+      this.bookTable(booking_date, customer_name, booking_time);
     }
     ,
-    async bookTable(bookingDate, customerName, bookingTime) {
+    async bookTable(booking_date, customer_name, booking_time) {
       try {
         const response = await fetch("http://localhost:8080/bookings", {
           method: "POST",
@@ -72,9 +52,9 @@ const vue = Vue.createApp({
           },
           body: JSON.stringify({
             restaurantId: this.restaurantInModal.id,
-            bookingDate,
-            bookingTime,
-            customerName,
+            booking_date,
+            booking_time,
+            customer_name,
           }),
         });
 
